@@ -8,7 +8,7 @@ require_once PATH_CTRLS . '/ComboBox.php';
 class ReportesController
 {
 
-    public function TablaSemanas($id) 
+    public function TablaAsignacionesSem($id) 
     {
 
         $rep_sem = new Reportes();
@@ -41,14 +41,57 @@ class ReportesController
         $cmb_dat_sem->SetAddRowFirst('.:Selecciona una semana:.');
         $cmb_dat_sem->SetOnChange('CreaTablaAsignaciones()');
         $cmb_dat_sem->SetDataSource($dat_sem);
-        return $cmb_dat_sem->RunComboBox();
+        $html_combo = $cmb_dat_sem->RunComboBox();
+        return $html_combo;
+    }
+
+    public function ComboCatMes()
+    {
+        $num_mes = date("m");
+        $cero = substr($num_mes, 0, 1);
+
+        if($cero === '0')
+        {
+            $num_mes = substr($num_mes, 1, 1);
+        }
+        
+        $anio = date('Y');
+        $id = $anio . $num_mes;
+
+        $obj_dat = new Reportes();
+        $dat_sem = $obj_dat->CatMeses();
+
+        $cmb_dat_mes = new ComboBox();
+        $cmb_dat_mes->SetID('CmbCatMes');
+        $cmb_dat_mes->SetClass('form-control');
+        $cmb_dat_mes->SetDataValueField('id');
+        $cmb_dat_mes->SetDataTextField('nom_mes');
+        $cmb_dat_mes->SetValSelected($id);
+        $cmb_dat_mes->SetAddRowFirst('.:Selecciona un mes:.');
+        $cmb_dat_mes->SetOnChange('CreaTablaAsignacionesMes()');
+        $cmb_dat_mes->SetDataSource($dat_sem);
+        $html_combo = $cmb_dat_mes->RunComboBox();
+        return $html_combo;
     }
     
+    public function TablaAsignacionesMes($id) 
+    {
+
+        $rep_mes = new Reportes();
+        $dat_rep_mes = $rep_mes->AsignacionesMes($id);
+
+        $tab_rep_mes = new DataTable();
+        $tab_rep_mes->SetID('TabMes');
+        $tab_rep_mes->SetClass('display');
+        $tab_rep_mes->SetDataSource($dat_rep_mes);
+        $html_table = $tab_rep_mes->CreateDT();
+        return $html_table;
+  
+    }
+
 }
 
 // SE RECUPERAN LOS DATOS SOLICITADOS POR AJAX =================================
-
-$ajx = new ReportesController();
 
 if (isset($_POST['MyJson'])) {
 
@@ -61,29 +104,24 @@ if (isset($_POST['MyJson'])) {
         }
     }
 
+    $ajx = new ReportesController();
+
+
     if ($ArrayVars['NomFunction'] == 'CreaTablaAsignaciones') {
-        $dats = $ajx->TablaSemanas($ArrayVars['id_sem']);
+        $dats = $ajx->TablaAsignacionesSem($ArrayVars['id_sem']);
         echo $dats;
-    } else if ($ArrayVars['NomFunction'] == 'SaveNewClient') {
-
-        $ajx->SetId($ArrayVars['id']);
-        $ajx->setName($ArrayVars['name']);
-        $ajx->setApaterno($ArrayVars['apaterno']);
-        $ajx->setAmaterno($ArrayVars['amaterno']);
-        $ajx->setCallenum($ArrayVars['callenum']);
-        $ajx->setDireccion($ArrayVars['direction']);
-        $ajx->setTelefono($ArrayVars['telefono']);
-        $ajx->setSexo($ArrayVars['sexo']);
-
-        $dats = $ajx->SaveData();
-        $jdats = json_encode($dats);
-        echo $jdats;
+    } else if ($ArrayVars['NomFunction'] == 'CreaComboSemanas') {
+        $dats = $ajx->ComboCatSemana();
+        echo $dats;
+    } else if ($ArrayVars['NomFunction'] == 'CreaComboMes') {
+        $dats = $ajx->ComboCatMes();
+        echo $dats;
+    } else if ($ArrayVars['NomFunction'] == 'CreaTablaAsignacionesMes') {
+        $dats = $ajx->TablaAsignacionesMes($ArrayVars['id_mes']);
+        echo $dats;
     }
 
 }
 
 // =============================================================================
 
-$combo_semanas = new ReportesController();
-
-include_once PATH_VIEW . '/rep_semana.php';

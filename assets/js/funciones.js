@@ -10,7 +10,7 @@ function CallBacksAjax(pUrl, pType, pData, pDatatype, MyCallBack) {
         async: true
     }).done(function(jsonStr, textStatus, jqXHR) {
         if (console && console.log) {
-            console.log("Success: " + textStatus + ". " + jqXHR + ". " + jsonStr);
+            console.log("Success: " + textStatus);
         }
         if (pDatatype == 'JSON') {
             ObjectData = JSON.parse(jsonStr);
@@ -30,52 +30,97 @@ function CallBacksAjax(pUrl, pType, pData, pDatatype, MyCallBack) {
 }
 
 $(document).ready(function() {
-    CreaTablaAsignaciones();
+    CreaComboSemanas();
+    CreaComboMes();
+    OcultarModulos();
+    $('#mod1').show(500);
 });
 
+function CreaComboSemanas() {
+
+    var JsonData = { "vars": { "NomFunction": "CreaComboSemanas", "id": 1 } };
+
+    CallBacksAjax("views/soft_resp.php", 'POST', JsonData, 'html', function(ObjectDrop) {
+
+        $("#SecDropDownSemanas").html(ObjectDrop);
+
+    });
+}
+
 function CreaTablaAsignaciones() {
-    var JsonData = { vars: { NomFunction: "CreaTablaAsignaciones", id_sem: $("#CmbCatSemanas").val() } };
+    var JsonData = { "vars": { "NomFunction": "CreaTablaAsignaciones", "id_sem": $("#CmbCatSemanas").val() } };
 
+    CallBacksAjax("views/soft_resp.php", "POST", JsonData, "html", function(ObjectTable) {
 
-    CallBacksAjax("views/soft_resp.php", "POST", JsonData, "html", function(ObjectData) {
-
-        $("#TablaAsignaciones").html(ObjectData);
-
+        $("#TablaAsignaciones").html(ObjectTable);
+        console.log(ObjectTable);
         $("#TabSemana").DataTable();
 
     });
-
 }
 
-function EditarRegistroCli(ID) {
-    //console.log("Editar Registro:", "Se abre ventana para editar registro: " + ID);
-    //Materialize.updateTextFields();
-    var JsonData = {
-        "vars": { "NomFunction": "GetClienteJson", "id": ID }
-    };
+function CreaComboMes() {
+    var JsonData = { vars: { NomFunction: "CreaComboMes", id: 1 } };
 
-    CallBacksAjax("view/AJAX.php", 'POST', JsonData, 'JSON', function(ObjectData) {
-        console.log(ObjectData);
-        var DatsBD = ObjectData.obj_;
-        RecuperaInfoCliente(DatsBD);
-
-        $('#modal1').modal('open');
-        Materialize.updateTextFields();
+    CallBacksAjax("views/soft_resp.php", "POST", JsonData, "html", function(
+        ObjectDrop
+    ) {
+        $("#SecDropDownMeses").html(ObjectDrop);
     });
 }
 
-function RecuperaInfoCliente(InfoCliente) {
-    $('#Id').val(InfoCliente[0]['id']);
-    $('#name').val(InfoCliente[0]['name']);
-    $('#apaterno').val(InfoCliente[0]['apat']);
-    $('#amaterno').val(InfoCliente[0]['amat']);
-    $('#callenum').val(InfoCliente[0]['street']);
-    $('#direccion').val(InfoCliente[0]['direction']);
-    $('#telefono').val(InfoCliente[0]['telephone']);
-    $('#sexo').val(InfoCliente[0]['sex']);
+function CreaTablaAsignacionesMes() {
 
-    //$('#ta_marca option').removeAttr('selected');
-    //$('#ta_marca option[value="' + InfoTabletas[0]['marca'] + '"]').attr('selected', true);
-    //$('#ta_marca').val(InfoTabletas[0]['marca']);
+    var JsonData = { "vars": { "NomFunction": "CreaTablaAsignacionesMes", "id_mes": $("#CmbCatMes").val() } };
+
+    CallBacksAjax("views/soft_resp.php", "POST", JsonData, "html", function(ObjectTable) {
+
+        $("#TablaAsignacionesMes").html(ObjectTable);
+        //console.log(ObjectTable);
+        $("#TabMes").DataTable();
+    });
+}
+
+
+function MostrarModulo(id_li) {
+
+    OcultarModulos();
+    RemoverClassActiv();
+    $('#mod' + id_li).show(500);
+
+    if (id_li === 2) {
+        CreaTablaAsignaciones();
+    } else if (id_li === 3) {
+        CreaTablaAsignacionesMes();
+    }
+    $('#li' + id_li).addClass("active");
+
+}
+
+function OcultarModulos() {
+
+    $('#mod1').hide();
+    $('#mod2').hide();
+    $('#mod3').hide();
+    //$('#mod4').hide();
+    //$('#mod5').hide();
+    //$('#mod6').hide();
+    //$('#mod7').hide();
+    //$('#mod8').hide();
+    //$('#mod9').hide();
+
+}
+
+function RemoverClassActiv() {
+
+    $('#li1').removeClass("active");
+    $('#li2').removeClass("active");
+    $('#li3').removeClass("active");
+    $('#li4').removeClass("active");
+    $('#li5').removeClass("active");
+    $('#li6').removeClass("active");
+    $('#li7').removeClass("active");
+    $('#li8').removeClass("active");
+    $('#li9').removeClass("active");
 
 }

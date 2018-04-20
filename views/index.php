@@ -16,6 +16,9 @@
             height: 100%;
             position: relative;
         }
+        .linky{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -26,39 +29,63 @@
         <div class="col-lg-2 col-sm-12" style="background-color: #E2E1DF;">
             <br>
             <ul class="list-group" style="margin-left: 10px;">
-                <li class="list-group-item active">Inicio</li>
-                <li class="list-group-item">Asignaciones por semana</li>
-                <li class="list-group-item">Asignaciones por mes</li>
-                <li class="list-group-item">Generar asignaciones auto.</li>
-                <li class="list-group-item">Editar asignaciones</li>
-                <li class="list-group-item">Administrar asignaciones</li>
-                <li class="list-group-item">Administrar publicadores</li>
-                <li class="list-group-item">Administrar estudios</li>
-                <li class="list-group-item">Administrar semanas</li>
-                <li class="list-group-item">Administrar asignación</li>
+                <li id="li1" class="list-group-item linky active" onclick="MostrarModulo(1);">Inicio</li>
+                <li id="li2" class="list-group-item linky" onclick="MostrarModulo(2);">Asignaciones por semana</li >
+                <li id="li3" class="list-group-item linky" onclick="MostrarModulo(3);">Asignaciones por mes</li>
+                <li id="li4" class="list-group-item linky" onclick="MostrarModulo(4);">Generar asignaciones auto.</li>
+                <li id="li5" class="list-group-item linky" onclick="MostrarModulo(5);">Editar asignaciones</li>
+                <li id="li6" class="list-group-item linky" onclick="MostrarModulo(6);">Administrar asignaciones</li>
+                <li id="li7" class="list-group-item linky" onclick="MostrarModulo(7);">Administrar publicadores</li>
+                <li id="li8" class="list-group-item linky" onclick="MostrarModulo(8);">Administrar estudios</li>
+                <li id="li9" class="list-group-item linky" onclick="MostrarModulo(9);">Administrar semanas</li>
             </ul>
-        </div>
-
-        <!--<div id="inicio" class="col-lg-8 col-sm-12 d-flex align-items-end" style="background-color: #00627F; background-image: url(img/home.png); background-repeat: no-repeat;">
-            <h1>
-                <span class="text-light display-3">Administración para la reunión:</span>
-                <span class="text-light display-2">SEAMOS MEJORES MAESTROS</span>
-            </h1>
-        </div>-->
-
-        <div id="inicio" class="col-lg-8 col-sm-12" style="background-color: #00627F; display: block;">
-            <h2>
-                <span class="text-light display-4">Asignaciones por semana:</span>
-            </h2>
             <hr>
-            <?php require_once PATH_CLLER . '/reportes.controller.php'; ?>
-
+            <form  method="POST" >
+                <div class="form-group">
+                    <button type="submit" class="btn btn-danger form-control" style="margin-left: 8px;">SALIR</button>
+                    <input type="hidden" name="logout" value="true">
+                </div>
+            </form>
         </div>
-        
 
+        <div class="col-lg-8 col-sm-12" style="background-color: #00627F;">
+
+            <div id="mod1" class="" style="display: none; background-color: #00627F; background-image: url(img/home.png); background-repeat: no-repeat; height: 100%;">
+                <h1>
+                    <span class="text-light display-3">Administración para la reunión:</span>
+                    <span class="text-light display-2">SEAMOS MEJORES MAESTROS</span>
+                </h1>
+            </div>
+
+            <div id="mod2" class="container" style="background-color: #00627F;">
+
+                <h2>
+                    <span class="text-light display-4">Asignaciones por semana:</span>
+                </h2>
+                <hr>
+                <?php require_once PATH_VIEW . '/rep_semana.php'; ?>
+
+            </div>
+
+            <div id="mod3" class="container" style="background-color: #00627F;">
+
+                <h2>
+                    <span class="text-light display-4">Asignaciones por mes:</span>
+                </h2>
+                <hr>
+                <?php require_once PATH_VIEW . '/rep_mes.php'; ?>
+
+            </div>
+
+            
+        </div>
+
+
+        <!-- ########################### seccion lateral ##################################### -->
         <div class="col-lg-2 col-sm-12" style="background-color: #E2E1DF;">
 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
         </div>
 
     </div>

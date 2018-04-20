@@ -19,13 +19,16 @@ if (isset($_POST['MyJson'])) {
 
     switch ($ArrayVars['NomFunction']) {
         case 'CreaTablaAsignaciones':
-            require_once PATH_CLLER . '/reportes.controller.php';
+            include_once PATH_CLLER . '/reportes.controller.php';
             break;
-        case 'SaveNewClient':
-            include_once PATH_CLLER . '/ajax.controller.php';
+        case 'CreaComboSemanas':
+            include_once PATH_CLLER . '/reportes.controller.php';
             break;
-        case 'RetenerTabAgen':
-            //include_once '../business/classAsignacionTabletas.php';
+        case 'CreaComboMes':
+            include_once PATH_CLLER . '/reportes.controller.php';
+            break;
+        case 'CreaTablaAsignacionesMes':            
+            include_once PATH_CLLER . '/reportes.controller.php';
             break;
         default:
             break;
