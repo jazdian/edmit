@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -20,6 +21,7 @@
             cursor: pointer;
         }
     </style>
+
 </head>
 
 <body>
@@ -48,7 +50,7 @@
             </form>
         </div>
 
-        <div class="col-lg-8 col-sm-12" style="background-color: #00627F;">
+        <div class="col-lg-9 col-sm-12" style="background-color: #00627F;">
 
             <div id="mod1" class="" style="display: none; background-color: #00627F; background-image: url(img/home.png); background-repeat: no-repeat; height: 100%;">
                 <h1>
@@ -77,12 +79,20 @@
 
             </div>
 
-            
+            <div id="mod4" class="container" style="background-color: #00627F;">
+
+                <h2>
+                    <span class="text-light display-4">Asignaciones mensuales:</span>
+                </h2>
+                <hr>
+                <?php require_once PATH_VIEW . '/gen_asignaciones.php'; ?>
+
+            </div>
+
         </div>
 
-
         <!-- ########################### seccion lateral ##################################### -->
-        <div class="col-lg-2 col-sm-12" style="background-color: #E2E1DF;">
+        <div class="col-lg-1 col-sm-12" style="background-color: #E2E1DF;">
 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 

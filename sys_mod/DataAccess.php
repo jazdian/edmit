@@ -86,8 +86,8 @@ class DataAccess
        $i = 1;
        foreach ($ArrayParams as $value)
        {
-	   $Statement->bindValue($i, $value, PDO::PARAM_STR);
-	   $i++;
+            $Statement->bindValue($i, $value, PDO::PARAM_STR);
+	        $i++;
        }
        $result = $Statement->execute();
        if ($result === true)

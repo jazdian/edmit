@@ -30,6 +30,18 @@ if (isset($_POST['MyJson'])) {
         case 'CreaTablaAsignacionesMes':            
             include_once PATH_CLLER . '/reportes.controller.php';
             break;
+        case 'RecuperarProgramaMes':
+            include_once PATH_CLLER . '/gen_asignaciones.controller.php';            
+            break;
+        case 'RecuperaPublicadores':
+            include_once PATH_CLLER . '/gen_asignaciones.controller.php';            
+            break;
+        case 'RecuperaEstudios':
+            include_once PATH_CLLER . '/gen_asignaciones.controller.php';            
+            break;
+        case 'GenerarAsignacionesAutomaticas':
+            include_once PATH_CLLER . '/gen_asignaciones.controller.php';            
+            break;        
         default:
             break;
     }

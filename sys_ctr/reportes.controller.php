@@ -20,7 +20,7 @@ class ReportesController
         $tab_rep_sem->SetDataSource($dat_rep_sem);
         $html_table = $tab_rep_sem->CreateDT();
         return $html_table;
-  
+
     }
 
     public function ComboCatSemana()
@@ -54,7 +54,7 @@ class ReportesController
         {
             $num_mes = substr($num_mes, 1, 1);
         }
-        
+
         $anio = date('Y');
         $id = $anio . $num_mes;
 
@@ -73,7 +73,7 @@ class ReportesController
         $html_combo = $cmb_dat_mes->RunComboBox();
         return $html_combo;
     }
-    
+
     public function TablaAsignacionesMes($id) 
     {
 
@@ -86,7 +86,7 @@ class ReportesController
         $tab_rep_mes->SetDataSource($dat_rep_mes);
         $html_table = $tab_rep_mes->CreateDT();
         return $html_table;
-  
+
     }
 
 }
